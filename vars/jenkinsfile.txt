@@ -1,0 +1,27 @@
+@Library('jenkinssharedlib') _
+
+pipeline {
+    agent any
+    
+    tools {
+        maven "Maven-3.9.4"
+    }
+    
+    stages  {
+        stage('Git Clone') {
+            steps {
+                git ('https://github.com/Ajit911007/CICD-Maven-web-app.git')
+            }
+        }
+        stage('Build') {
+            steps {
+                mavenBuild()
+            }
+        }
+        stage('Code Review') {
+            steps {
+                sonarQube()
+            }
+        }
+    }
+}
